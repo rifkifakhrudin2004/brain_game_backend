@@ -25,7 +25,10 @@ class MateriResource extends Resource
     {
         return $form->schema([
             TextInput::make('title')->required()->maxLength(255),
-            Textarea::make('content')->required(),
+            Textarea::make('content')
+                ->required()
+                ->rows(10) // Menentukan tinggi box, default biasanya 3
+                ->columnSpanFull(), // Agar textarea mengambil seluruh lebar form
         ]);
     }
 
@@ -36,9 +39,9 @@ class MateriResource extends Resource
             TextColumn::make('title')->searchable()->sortable(),
             TextColumn::make('created_at')->label('Created')->date(),
         ])->actions([
-            Tables\Actions\EditAction::make(),
-            Tables\Actions\DeleteAction::make(),
-        ]);
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ]);
     }
 
     public static function getRelations(): array
